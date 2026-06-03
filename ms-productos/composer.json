@@ -1,0 +1,20 @@
+{
+    "name": "camilo/ms-productos",
+    "description": "Microservicio de productos",
+    "autoload": {
+        "psr-4": {
+            "Camilo\\MsProductos\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "camilo",
+            "email": "10cam@Kamilo.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.15",
+        "slim/psr7": "^1.8",
+        "illuminate/database": "^9.52"
+    }
+}

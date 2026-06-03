@@ -1,0 +1,20 @@
+{
+    "name": "camilo/ms-reservas",
+    "description": "Microservicio de reservas",
+    "autoload": {
+        "psr-4": {
+            "Camilo\\MsReservas\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "camilo",
+            "email": "10cam@Kamilo.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.15",
+        "slim/psr7": "^1.8",
+        "illuminate/database": "^9.52"
+    }
+}
