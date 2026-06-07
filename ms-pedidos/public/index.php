@@ -6,6 +6,7 @@ require __DIR__ . '/../src/database.php';
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Camilo\MsPedidos\Controllers\PedidoController;
+use Camilo\MsPedidos\AuthMiddleware;
 
 $app = AppFactory::create();
 
@@ -35,9 +36,9 @@ $app->get('/', function ($request, $response) {
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/pedidos', [PedidoController::class, 'getPedidos']);
-$app->get('/pedidos/{id}', [PedidoController::class, 'getPedido']);
-$app->post('/pedidos', [PedidoController::class, 'crearPedido']);
-$app->put('/pedidos/{id}/estado', [PedidoController::class, 'actualizarEstado']);
+$app->get('/pedidos', [PedidoController::class, 'getPedidos'])->add(new AuthMiddleware());
+$app->get('/pedidos/{id}', [PedidoController::class, 'getPedido'])->add(new AuthMiddleware());
+$app->post('/pedidos', [PedidoController::class, 'crearPedido'])->add(new AuthMiddleware());
+$app->put('/pedidos/{id}/estado', [PedidoController::class, 'actualizarEstado'])->add(new AuthMiddleware());
 
 $app->run();

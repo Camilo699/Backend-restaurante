@@ -6,6 +6,7 @@ require __DIR__ . '/../src/database.php';
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Camilo\MsProductos\Controllers\ProductoController;
+use Camilo\MsProductos\AuthMiddleware;
 
 $app = AppFactory::create();
 
@@ -35,10 +36,10 @@ $app->get('/', function ($request, $response) {
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/categorias', [ProductoController::class, 'getCategorias']);
-$app->get('/productos', [ProductoController::class, 'getProductos']);
-$app->get('/productos/categoria/{id}', [ProductoController::class, 'getProductosPorCategoria']);
-$app->post('/productos', [ProductoController::class, 'crearProducto']);
-$app->put('/productos/{id}/disponibilidad', [ProductoController::class, 'actualizarDisponibilidad']);
+$app->get('/categorias', [ProductoController::class, 'getCategorias'])->add(new AuthMiddleware());
+$app->get('/productos', [ProductoController::class, 'getProductos'])->add(new AuthMiddleware());
+$app->get('/productos/categoria/{id}', [ProductoController::class, 'getProductosPorCategoria'])->add(new AuthMiddleware());
+$app->post('/productos', [ProductoController::class, 'crearProducto'])->add(new AuthMiddleware());
+$app->put('/productos/{id}/disponibilidad', [ProductoController::class, 'actualizarDisponibilidad'])->add(new AuthMiddleware());
 
 $app->run();

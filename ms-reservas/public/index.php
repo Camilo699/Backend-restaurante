@@ -6,6 +6,7 @@ require __DIR__ . '/../src/database.php';
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Camilo\MsReservas\Controllers\ReservaController;
+use Camilo\MsReservas\AuthMiddleware;
 
 $app = AppFactory::create();
 
@@ -35,9 +36,9 @@ $app->get('/', function ($request, $response) {
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/mesas', [ReservaController::class, 'getMesas']);
-$app->get('/reservas', [ReservaController::class, 'getReservas']);
-$app->post('/reservas', [ReservaController::class, 'crearReserva']);
-$app->put('/reservas/{id}/cancelar', [ReservaController::class, 'cancelarReserva']);
+$app->get('/mesas', [ReservaController::class, 'getMesas'])->add(new AuthMiddleware());
+$app->get('/reservas', [ReservaController::class, 'getReservas'])->add(new AuthMiddleware());
+$app->post('/reservas', [ReservaController::class, 'crearReserva'])->add(new AuthMiddleware());
+$app->put('/reservas/{id}/cancelar', [ReservaController::class, 'cancelarReserva'])->add(new AuthMiddleware());
 
 $app->run();
