@@ -6,6 +6,7 @@ require __DIR__ . '/../src/database.php';
 use Slim\Factory\AppFactory;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Camilo\MsAuth\Controllers\AuthController;
+use Camilo\MsAuth\Controllers\UsuarioController;
 
 $app = AppFactory::create();
 
@@ -37,5 +38,8 @@ $app->get('/', function ($request, $response) {
 
 $app->post('/login', [AuthController::class, 'login']);
 $app->post('/logout', [AuthController::class, 'logout']);
+$app->get('/usuarios', [UsuarioController::class, 'getUsuarios']);
+$app->post('/usuarios', [UsuarioController::class, 'crearUsuario']);
+$app->put('/usuarios/{id}/estado', [UsuarioController::class, 'cambiarEstado']);
 
 $app->run();
