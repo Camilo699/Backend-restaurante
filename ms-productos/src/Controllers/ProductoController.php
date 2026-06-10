@@ -85,4 +85,34 @@ class ProductoController
         ]));
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function eliminarPedido(Request $request, Response $response, array $args): Response
+{
+    $pedido = Pedido::find($args['id']);
+
+    if (!$pedido) {
+        $response->getBody()->write(json_encode([
+            'status' => 'error',
+            'mensaje' => 'Pedido no encontrado'
+        ]));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
+    }
+
+    if (!in_array($pedido->estado, ['pagado', 'cancelado'])) {
+        $response->getBody()->write(json_encode([
+            'status' => 'error',
+            'mensaje' => 'Solo se pueden eliminar pedidos pagados o cancelados'
+        ]));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+    }
+
+    DetallePedido::where('pedido_id', $pedido->id)->delete();
+    $pedido->delete();
+
+    $response->getBody()->write(json_encode([
+        'status' => 'ok',
+        'mensaje' => 'Pedido eliminado correctamente'
+    ]));
+    return $response->withHeader('Content-Type', 'application/json');
+    }
 }

@@ -40,5 +40,6 @@ $app->get('/pedidos', [PedidoController::class, 'getPedidos'])->add(new AuthMidd
 $app->get('/pedidos/{id}', [PedidoController::class, 'getPedido'])->add(new AuthMiddleware());
 $app->post('/pedidos', [PedidoController::class, 'crearPedido'])->add(new AuthMiddleware());
 $app->put('/pedidos/{id}/estado', [PedidoController::class, 'actualizarEstado'])->add(new AuthMiddleware());
+$app->delete('/pedidos/{id}', [PedidoController::class, 'eliminarPedido'])->add(new AuthMiddleware());
 
 $app->run();

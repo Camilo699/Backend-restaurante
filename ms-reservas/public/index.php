@@ -40,5 +40,6 @@ $app->get('/mesas', [ReservaController::class, 'getMesas'])->add(new AuthMiddlew
 $app->get('/reservas', [ReservaController::class, 'getReservas'])->add(new AuthMiddleware());
 $app->post('/reservas', [ReservaController::class, 'crearReserva'])->add(new AuthMiddleware());
 $app->put('/reservas/{id}/cancelar', [ReservaController::class, 'cancelarReserva'])->add(new AuthMiddleware());
+$app->delete('/reservas/{id}', [ReservaController::class, 'eliminarReserva'])->add(new AuthMiddleware());
 
 $app->run();

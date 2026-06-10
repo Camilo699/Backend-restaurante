@@ -94,4 +94,33 @@ class ReservaController
         ]));
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function eliminarReserva(Request $request, Response $response, array $args): Response
+{
+    $reserva = Reserva::find($args['id']);
+
+    if (!$reserva) {
+        $response->getBody()->write(json_encode([
+            'status' => 'error',
+            'mensaje' => 'Reserva no encontrada'
+        ]));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(404);
+    }
+
+    if (!in_array($reserva->estado, ['cancelada', 'finalizada'])) {
+        $response->getBody()->write(json_encode([
+            'status' => 'error',
+            'mensaje' => 'Solo se pueden eliminar reservas canceladas o finalizadas'
+        ]));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+    }
+
+    $reserva->delete();
+
+    $response->getBody()->write(json_encode([
+        'status' => 'ok',
+        'mensaje' => 'Reserva eliminada correctamente'
+    ]));
+    return $response->withHeader('Content-Type', 'application/json');
+    }
 }
