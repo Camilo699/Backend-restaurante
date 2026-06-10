@@ -21,8 +21,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
 );
 
 INSERT IGNORE INTO usuarios (nombre, correo, usuario, contrasena, rol, estado, created_at, updated_at) VALUES
-('Administrador General', 'admin@restaurante.com', 'admin', 'admin123', 'administrador', 'activo', NOW(), NOW()),
-('Empleado Restaurante', 'empleado@restaurante.com', 'empleado', 'empleado123', 'empleado', 'activo', NOW(), NOW());
+('Administrador General', 'admin@restaurante.com', 'admin', '$2y$10$j1uMY4.4zFqfKpxUrIBrYecRryd1nakn71QG12gaP7GZXJWCelKLO', 'administrador', 'activo', NOW(), NOW()),
+('Empleado Restaurante', 'empleado@restaurante.com', 'empleado', '$2y$10$w.HpIrBKZDflaQb8mfcIjeBksx4x7POeZ.g/zk6AdL1kg032Gey5O', 'empleado', 'activo', NOW(), NOW());
 
 -- Base de datos de reservas
 CREATE DATABASE IF NOT EXISTS db_reservas;
@@ -121,3 +121,24 @@ CREATE TABLE IF NOT EXISTS detalles_pedidos (
     updated_at TIMESTAMP NULL DEFAULT NULL,
     CONSTRAINT fk_detalles_pedidos_pedidos FOREIGN KEY (pedido_id) REFERENCES pedidos(id)
 );
+
+INSERT IGNORE INTO productos (nombre, descripcion, precio, disponible, categoria_id, created_at, updated_at) VALUES
+('Patacones con Hogao', 'Patacones fritos con salsa de tomate y cebolla', 9000, TRUE, 1, NOW(), NOW()),
+('Empanadas de Pipián', 'Empanadas rellenas de papas con maní', 7000, TRUE, 1, NOW(), NOW()),
+('Caldo de Costilla', 'Caldo tradicional con costilla de res', 12000, TRUE, 1, NOW(), NOW()),
+('Arepa de Chócolo', 'Arepa dulce de maíz tierno con queso', 6000, TRUE, 1, NOW(), NOW()),
+('Jugo de Lulo', 'Jugo natural de lulo', 7000, TRUE, 2, NOW(), NOW()),
+('Jugo de Mora', 'Jugo natural de mora', 7000, TRUE, 2, NOW(), NOW()),
+('Agua de Panela', 'Agua de panela caliente con limón', 5000, TRUE, 2, NOW(), NOW()),
+('Chocolate Santafereño', 'Chocolate caliente con queso y pan', 8000, TRUE, 2, NOW(), NOW()),
+('Mazamorra', 'Bebida tradicional de maíz', 6000, TRUE, 2, NOW(), NOW()),
+('Bandeja Paisa', 'Frijoles, arroz, chicharrón, huevo, aguacate y chorizo', 32000, TRUE, 3, NOW(), NOW()),
+('Ajiaco Bogotano', 'Sopa de pollo con papas y guascas', 28000, TRUE, 3, NOW(), NOW()),
+('Sancocho de Gallina', 'Sancocho tradicional de gallina criolla', 26000, TRUE, 3, NOW(), NOW()),
+('Trucha a la Plancha', 'Trucha fresca con arroz y ensalada', 30000, TRUE, 3, NOW(), NOW()),
+('Cazuela de Mariscos', 'Cazuela con camarones y mariscos', 35000, TRUE, 3, NOW(), NOW()),
+('Posta Negra', 'Carne de res en salsa negra con yuca', 28000, TRUE, 3, NOW(), NOW()),
+('Arroz con Leche', 'Arroz con leche y canela', 8000, TRUE, 4, NOW(), NOW()),
+('Natilla', 'Postre tradicional de maíz y panela', 7000, TRUE, 4, NOW(), NOW()),
+('Buñuelos', 'Buñuelos esponjosos con miel', 6000, TRUE, 4, NOW(), NOW()),
+('Flan de Coco', 'Flan suave de coco con caramelo', 9000, TRUE, 4, NOW(), NOW());

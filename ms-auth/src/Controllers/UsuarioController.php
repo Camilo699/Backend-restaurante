@@ -19,34 +19,34 @@ class UsuarioController
     }
 
     public function crearUsuario(Request $request, Response $response): Response
-    {
-        $datos = $request->getParsedBody();
+{
+    $datos = $request->getParsedBody();
 
-        $existe = Usuario::where('usuario', $datos['usuario'])->first();
-        if ($existe) {
-            $response->getBody()->write(json_encode([
-                'status' => 'error',
-                'mensaje' => 'El usuario ya existe'
-            ]));
-            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
-        }
-
-        $usuario = Usuario::create([
-            'nombre'     => $datos['nombre'],
-            'correo'     => $datos['correo'],
-            'usuario'    => $datos['usuario'],
-            'contrasena' => $datos['contrasena'],
-            'rol'        => $datos['rol'],
-            'estado'     => 'activo'
-        ]);
-
+    $existe = Usuario::where('usuario', $datos['usuario'])->first();
+    if ($existe) {
         $response->getBody()->write(json_encode([
-            'status' => 'ok',
-            'mensaje' => 'Usuario creado correctamente',
-            'data' => $usuario
+            'status' => 'error',
+            'mensaje' => 'El usuario ya existe'
         ]));
-        return $response->withHeader('Content-Type', 'application/json');
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
     }
+
+    $usuario = Usuario::create([
+        'nombre'     => $datos['nombre'],
+        'correo'     => $datos['correo'],
+        'usuario'    => $datos['usuario'],
+        'contrasena' => password_hash($datos['contrasena'], PASSWORD_BCRYPT),
+        'rol'        => $datos['rol'],
+        'estado'     => 'activo'
+    ]);
+
+    $response->getBody()->write(json_encode([
+        'status' => 'ok',
+        'mensaje' => 'Usuario creado correctamente',
+        'data' => $usuario
+    ]));
+    return $response->withHeader('Content-Type', 'application/json');
+}
 
     public function cambiarEstado(Request $request, Response $response, array $args): Response
     {
