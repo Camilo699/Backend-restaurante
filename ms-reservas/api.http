@@ -1,0 +1,33 @@
+### Verificar microservicio
+GET http://127.0.0.1:8002
+
+### Ver mesas
+GET http://127.0.0.1:8002/mesas
+Authorization: Bearer 8f98ba921775a63be3f9ee7d93d8521c1f25b1ad13240c17383fb8a916fc02ea
+
+### Ver reservas
+GET http://127.0.0.1:8002/reservas
+Authorization: Bearer 8f98ba921775a63be3f9ee7d93d8521c1f25b1ad13240c17383fb8a916fc02ea
+
+### Crear reserva
+POST http://127.0.0.1:8002/reservas
+Content-Type: application/json
+Authorization: Bearer TU_TOKEN_AQUI
+
+{
+    "nombre_cliente": "Juan Perez",
+    "telefono_cliente": "3001234567",
+    "cantidad_personas": 4,
+    "fecha": "2026-06-15",
+    "hora": "19:00:00",
+    "mesa_id": 1,
+    "observaciones": "Mesa cerca a la ventana"
+}
+
+### Cancelar reserva
+PUT http://127.0.0.1:8002/reservas/1/cancelar
+Authorization: Bearer TU_TOKEN_AQUI
+
+### Eliminar reserva
+DELETE http://127.0.0.1:8002/reservas/1
+Authorization: Bearer TU_TOKEN_AQUI

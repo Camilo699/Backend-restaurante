@@ -1,0 +1,36 @@
+### Verificar microservicio
+GET http://127.0.0.1:8003
+
+### Ver categorias
+GET http://127.0.0.1:8003/categorias
+Authorization: Bearer 8f98ba921775a63be3f9ee7d93d8521c1f25b1ad13240c17383fb8a916fc02ea
+
+### Ver productos
+GET http://127.0.0.1:8003/productos
+Authorization: Bearer TU_TOKEN_AQUI
+
+### Ver productos por categoria
+GET http://127.0.0.1:8003/productos/categoria/1
+Authorization: Bearer TU_TOKEN_AQUI
+
+### Crear producto
+POST http://127.0.0.1:8003/productos
+Content-Type: application/json
+Authorization: Bearer TU_TOKEN_AQUI
+
+{
+    "nombre": "Producto Nuevo",
+    "descripcion": "Descripcion del producto",
+    "precio": 15000,
+    "disponible": true,
+    "categoria_id": 1
+}
+
+### Actualizar disponibilidad
+PUT http://127.0.0.1:8003/productos/1/disponibilidad
+Content-Type: application/json
+Authorization: Bearer TU_TOKEN_AQUI
+
+{
+    "disponible": false
+}

@@ -1,0 +1,43 @@
+### Verificar microservicio
+GET http://127.0.0.1:8001
+
+### Login admin
+POST http://127.0.0.1:8001/login
+Content-Type: application/json
+
+{
+    "usuario": "admin",
+    "contrasena": "admin123"
+}
+
+### Login empleado
+POST http://127.0.0.1:8001/login
+Content-Type: application/json
+
+{
+    "usuario": "empleado",
+    "contrasena": "empleado123"
+}
+
+### Logout
+POST http://127.0.0.1:8001/logout
+Content-Type: application/json
+
+{
+    "token": "TU_TOKEN_AQUI"
+}
+
+### Ver usuarios
+GET http://127.0.0.1:8001/usuarios
+
+### Crear usuario
+POST http://127.0.0.1:8001/usuarios
+Content-Type: application/json
+
+{
+    "nombre": "Nuevo Empleado",
+    "correo": "nuevo@restaurante.com",
+    "usuario": "nuevo",
+    "contrasena": "nuevo123",
+    "rol": "empleado"
+}
