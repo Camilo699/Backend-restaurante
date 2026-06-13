@@ -58,6 +58,9 @@ INSERT IGNORE INTO mesas (numero, capacidad, estado, created_at, updated_at) VAL
 ('MESA-3', 6, 'disponible', NOW(), NOW()),
 ('MESA-4', 8, 'disponible', NOW(), NOW());
 
+INSERT IGNORE INTO reservas (nombre_cliente, telefono_cliente, cantidad_personas, fecha, hora, observaciones, estado, mesa_id, created_at, updated_at) VALUES
+('Carlos Ramirez', '3001234567', 4, '2026-06-10', '19:00:00', 'Reserva familiar', 'confirmada', 2, NOW(), NOW());
+
 -- Base de datos de productos
 CREATE DATABASE IF NOT EXISTS db_productos;
 USE db_productos;
@@ -122,23 +125,9 @@ CREATE TABLE IF NOT EXISTS detalles_pedidos (
     CONSTRAINT fk_detalles_pedidos_pedidos FOREIGN KEY (pedido_id) REFERENCES pedidos(id)
 );
 
-INSERT IGNORE INTO productos (nombre, descripcion, precio, disponible, categoria_id, created_at, updated_at) VALUES
-('Patacones con Hogao', 'Patacones fritos con salsa de tomate y cebolla', 9000, TRUE, 1, NOW(), NOW()),
-('Empanadas de Pipián', 'Empanadas rellenas de papas con maní', 7000, TRUE, 1, NOW(), NOW()),
-('Caldo de Costilla', 'Caldo tradicional con costilla de res', 12000, TRUE, 1, NOW(), NOW()),
-('Arepa de Chócolo', 'Arepa dulce de maíz tierno con queso', 6000, TRUE, 1, NOW(), NOW()),
-('Jugo de Lulo', 'Jugo natural de lulo', 7000, TRUE, 2, NOW(), NOW()),
-('Jugo de Mora', 'Jugo natural de mora', 7000, TRUE, 2, NOW(), NOW()),
-('Agua de Panela', 'Agua de panela caliente con limón', 5000, TRUE, 2, NOW(), NOW()),
-('Chocolate Santafereño', 'Chocolate caliente con queso y pan', 8000, TRUE, 2, NOW(), NOW()),
-('Mazamorra', 'Bebida tradicional de maíz', 6000, TRUE, 2, NOW(), NOW()),
-('Bandeja Paisa', 'Frijoles, arroz, chicharrón, huevo, aguacate y chorizo', 32000, TRUE, 3, NOW(), NOW()),
-('Ajiaco Bogotano', 'Sopa de pollo con papas y guascas', 28000, TRUE, 3, NOW(), NOW()),
-('Sancocho de Gallina', 'Sancocho tradicional de gallina criolla', 26000, TRUE, 3, NOW(), NOW()),
-('Trucha a la Plancha', 'Trucha fresca con arroz y ensalada', 30000, TRUE, 3, NOW(), NOW()),
-('Cazuela de Mariscos', 'Cazuela con camarones y mariscos', 35000, TRUE, 3, NOW(), NOW()),
-('Posta Negra', 'Carne de res en salsa negra con yuca', 28000, TRUE, 3, NOW(), NOW()),
-('Arroz con Leche', 'Arroz con leche y canela', 8000, TRUE, 4, NOW(), NOW()),
-('Natilla', 'Postre tradicional de maíz y panela', 7000, TRUE, 4, NOW(), NOW()),
-('Buñuelos', 'Buñuelos esponjosos con miel', 6000, TRUE, 4, NOW(), NOW()),
-('Flan de Coco', 'Flan suave de coco con caramelo', 9000, TRUE, 4, NOW(), NOW());
+INSERT IGNORE INTO pedidos (mesa_id, fecha, hora, subtotal, total, estado, created_at, updated_at) VALUES
+(1, '2026-06-10', '20:00:00', 36000, 36000, 'pendiente', NOW(), NOW());
+
+INSERT IGNORE INTO detalles_pedidos (pedido_id, producto_id, nombre_producto, cantidad, precio_unitario, subtotal, created_at, updated_at) VALUES
+(1, 1, 'Hamburguesa Especial', 1, 28000, 28000, NOW(), NOW()),
+(1, 2, 'Limonada Natural', 1, 8000, 8000, NOW(), NOW());
